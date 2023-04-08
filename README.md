@@ -2,6 +2,8 @@
 
 **JU**st a **SE**quence tool**KI**t for **T**ranscriptomics
 
+![](https://jusetiz.github.io/pic2/jusekit.png)
+
 该软件的目标：
 
 - 提取最长转录本。*（已实现）*
