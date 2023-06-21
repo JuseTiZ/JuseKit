@@ -510,6 +510,7 @@ class MyApp(QMainWindow, Ui_Dialog):
         IQpartition = '#nexus\nbegin sets;\n'
         total_length = 0
         total_spe_seq = {}
+        gene_spe_dic = {}
 
         total_num = len(aligns)
         compl_num = 0
@@ -522,12 +523,14 @@ class MyApp(QMainWindow, Ui_Dialog):
             with open(align, 'r') as ali:
 
                 # 初始化当前文件信息
+                gene_name = os.path.basename(align)
+                gene_spe = []
                 tmp_len = 0
                 tmp_species = []
                 for line in ali:
                     if line.startswith('>') and line.strip() != '>':
                         spe_name = line.split(symbol)[0].strip()
-
+                        gene_spe.append(spe_name[1:])
                         tmp_species.append(spe_name)
 
                         # 到当前比对才出现的物种之前的序列都以gap表示
@@ -549,6 +552,8 @@ class MyApp(QMainWindow, Ui_Dialog):
                 for spe in total_spe_seq.keys():
                     if spe not in tmp_species:
                         total_spe_seq[spe] += '-' * tmp_len
+                # 记录物种信息
+                gene_spe_dic[gene_name] = gene_spe
                 # 添加分区信息
                 charsetid = align.split('.')[0].split('/')[-1]
                 IQpartition += f"\tcharset {charsetid}={total_length + 1}-{total_length + tmp_len};\n"
@@ -595,6 +600,41 @@ class MyApp(QMainWindow, Ui_Dialog):
                         log.write(f"{spe[1:]}\t{len(total_spe_seq[spe])}\t{gap_per}%\t+\n")
                     else:
                         log.write(f"{spe[1:]}\t{len(total_spe_seq[spe])}\t{gap_per}%\t-\n")
+
+            # 生成基因log
+            all_spe = set()
+            for values in gene_spe_dic.values():
+                all_spe.update(values)
+
+            all_spe = sorted(all_spe)
+            gene_matrix = [['Gene'] + all_spe + ['Percentage(present)']]
+            spe_counts = {spe: 0 for spe in all_spe}
+
+            for key, values in gene_spe_dic.items():
+                row = [key]
+                spe_checked = 0
+                for spe in all_spe:
+                    if spe in values:
+                        row.append('')
+                        spe_checked += 1
+                        spe_counts[spe] += 1
+                    else:
+                        row.append('-')
+                percentage = f"{spe_checked / len(all_spe) * 100:.2f}%"
+                row.append(percentage)
+                gene_matrix.append(row)
+
+            final_row = ['Percentage']
+            total_keys = len(gene_spe_dic)
+            for spe in all_spe:
+                percentage = f"{spe_counts[spe] / total_keys * 100:.2f}%"
+                final_row.append(percentage)
+            final_row.append('')
+            gene_matrix.append(final_row)
+
+            with open(f"{outputdir}/gene.log", 'w') as log:
+                for row in gene_matrix:
+                    log.write('\t'.join(row) + '\n')
 
 
         # 生成串联文件
