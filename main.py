@@ -14,7 +14,8 @@ from fasta import readfa, id_modify, peptocds
 from filter import fa_filter
 from format_convert import check_sequence_type, write_axt, write_paml, write_phylip, write_nexus, write_nexus_interleaved
 from Study_record import LearningTimerWindow
-
+import logging
+from plot import plot_volcano
 
 class TimedDialog(QDialog):
     def __init__(self, text, time):
@@ -29,6 +30,9 @@ class TimedDialog(QDialog):
         self.timer.timeout.connect(self.close)
         self.timer.setSingleShot(True)
         self.timer.start(time) # 5 秒 (5000 毫秒)
+
+logging.basicConfig(filename='error.log', level=logging.ERROR, filemode='w',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 class MyApp(QMainWindow, Ui_Dialog):
     def __init__(self):
@@ -134,7 +138,9 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.bk_go_7.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.filter_bu.clicked.connect(lambda: self.browse_folder(self.filter_opdir))
         self.ptc_running_2.clicked.connect(self.fafilter)
-
+        self.sel_ali_3.installEventFilter(self)
+        self.vol_file.installEventFilter(self)
+        self.plot_bu_1.clicked.connect(self.vol_plot)
 
     def open_learning_timer(self):
         self.learning_timer_window = LearningTimerWindow()
@@ -191,6 +197,39 @@ class MyApp(QMainWindow, Ui_Dialog):
                     self.show_message_dialog("你给的文件太多，我只能接受一个QVQ")
                     return True
                 self.cds_input_text.setText(files[0])
+                return True
+
+        if source == self.vol_file:
+            if event.type() == QEvent.DragEnter:
+                if event.mimeData().hasUrls():
+                    event.acceptProposedAction()
+                return True
+
+            elif event.type() == QEvent.Drop:
+                urls = event.mimeData().urls()
+                files = []
+                for url in urls:
+                    files.append(url.toLocalFile())
+                if len(files) > 1:
+                    self.show_message_dialog("你给的文件太多，我只能接受一个QVQ")
+                    return True
+                self.vol_file.setText(files[0])
+                return True
+
+
+        if source == self.sel_ali_3:
+            if event.type() == QEvent.DragEnter:
+                if event.mimeData().hasUrls():
+                    event.acceptProposedAction()
+                return True
+
+            elif event.type() == QEvent.Drop:
+                urls = event.mimeData().urls()
+                files = []
+                for url in urls:
+                    files.append(url.toLocalFile())
+                    file_path = ', '.join(files)
+                self.sel_ali_3.setText(file_path)
                 return True
 
         return super().eventFilter(source, event)
@@ -335,8 +374,10 @@ class MyApp(QMainWindow, Ui_Dialog):
                     output.write(">" + gene + '\n')
                     output.write(lc[gene])
             self.show_message_dialog("文件已生成")
-        except:
+        except Exception as e:
             self.show_message_dialog("请检查您的文件或基因标识是否有误")
+            logging.error("发生错误: \n%s", str(e))
+            return
 
 
     def extract_id(self):
@@ -383,8 +424,9 @@ class MyApp(QMainWindow, Ui_Dialog):
                         op.write(f'>{id}\n{seq}')
                         id_com += 1
                         self.id_progress.setValue(int(id_com/id_num*100))
-        except:
+        except Exception as e:
             self.show_message_dialog("id和fasta里必有一个出问题。")
+            logging.error("发生错误: \n%s", str(e))
             return
         self.show_message_dialog("提取完成。")
         self.id_progress.setValue(0)
@@ -420,8 +462,9 @@ class MyApp(QMainWindow, Ui_Dialog):
             sb = ' '
         try:
             self.sequence_con(aligns=align_files, symbol=sb, outputdir=opdir, pf=pf_able, log=log_able)
-        except:
+        except Exception as e:
             self.show_message_dialog("您的序列或标识可能有点把子问题，要不检查一下？")
+            logging.error("发生错误: \n%s", str(e))
             return
         if self.open_dir.isChecked():
             QDesktopServices.openUrl(QUrl.fromLocalFile(opdir))
@@ -468,8 +511,9 @@ class MyApp(QMainWindow, Ui_Dialog):
                     id_modify(inputfile = input_fa,  mod = mod_used)
                 if self.delete_check.isChecked():
                     os.remove(input_fa)
-            except:
+            except Exception as e:
                 self.show_message_dialog("请检查序列文件是否出错")
+                logging.error("发生错误: \n%s", str(e))
                 return
 
             self.show_message_dialog("文件已生成")
@@ -499,8 +543,9 @@ class MyApp(QMainWindow, Ui_Dialog):
                         os.remove(f'{mp_dir}/{file}')
                     compl_num += 1
                     self.progressBar.setValue(int(compl_num/total_num*100))
-                except:
+                except Exception as e:
                     self.show_message_dialog("请检查序列文件是否出错")
+                    logging.error("发生错误: \n%s", str(e))
                     return
             self.show_message_dialog("文件已生成")
             self.progressBar.setValue(0)
@@ -702,9 +747,10 @@ class MyApp(QMainWindow, Ui_Dialog):
                     write_phylip(op_file, id_seq_for)
                 compu_num += 1
                 self.convert_progress.setValue(int(compu_num/total_num*100))
-        except:
+        except Exception as e:
             self.show_message_dialog("输入的文件里有不对劲的东西！")
             self.convert_progress.setValue(0)
+            logging.error("发生错误: \n%s", str(e))
             return
 
         self.show_message_dialog("格式转换完成咯啊哈哈哈")
@@ -735,9 +781,11 @@ class MyApp(QMainWindow, Ui_Dialog):
                 self.pep_to_cds.setValue(int(compu_num/total_num*100))
             self.show_message_dialog(f"完成了，输出在{output_dir}里。")
             self.pep_to_cds.setValue(0)
-        except:
+        except Exception as e:
             self.show_message_dialog("是哪里出了问题呢？是哪里呢...")
             self.pep_to_cds.setValue(0)
+            logging.error("发生错误: \n%s", str(e))
+            return
 
     def fafilter(self):
 
@@ -765,12 +813,40 @@ class MyApp(QMainWindow, Ui_Dialog):
                 fa_filter(af, output_dir, spesym=ss, gap=gn, min_ali_len=mla, min_seq_len=mls, min_spe_num=msn)
                 compu_num += 1
                 self.filter_progress.setValue(int(compu_num/total_num*100))
-        except:
+        except Exception as e:
             self.show_message_dialog('遇到问题序列，程序中断。')
             self.filter_progress.setValue(0)
+            logging.error("发生错误: \n%s", str(e))
             return
         self.show_message_dialog("任务已完成，运行 log 可见 filter.log")
         self.filter_progress.setValue(0)
+
+    def vol_plot(self):
+
+        file = self.vol_file.toPlainText()
+        log2fc = self.log2fc.value()
+        self.vp_pro.setValue(20)
+        adjp = self.adjp.value()
+        upcol = self.up_color.currentText()
+        downcol = self.down_color.currentText()
+        self.vp_pro.setValue(50)
+        labelsize = self.labelsize.value()
+        axissize = self.axissize.value()
+        dotsize = self.dotsize.value()
+        titlesize = self.titlesize.value()
+        numsize = self.numsize.value()
+        self.vp_pro.setValue(100)
+
+        try:
+            plot_volcano(file, logfc_threshold=log2fc, adjp_threshold=adjp,
+                         up_color=upcol, down_color=downcol,point_size=dotsize,
+                         tick_size=numsize, title_size=titlesize, axis_size=axissize,
+                         label_size=labelsize)
+            self.vp_pro.setValue(0)
+        except Exception as e:
+            self.show_message_dialog(f"发生错误：{e}\n请检查文件")
+            self.vp_pro.setValue(0)
+
 
 
 if __name__ == "__main__":
