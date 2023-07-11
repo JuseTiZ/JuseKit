@@ -16,4 +16,4 @@
 
 教程可见：[Juse's blog](https://jusetiz.github.io/)
 
-若报错 Bug 可以联系 Juse 修复。
+若存在报错 Bug 可以联系 Juse 修复。
