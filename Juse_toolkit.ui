@@ -3044,7 +3044,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QPushButton" name="gtl_dl">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>下载 GO term list 文件</string>
@@ -3054,7 +3054,7 @@ p, li { white-space: pre-wrap; }
          <item>
           <widget class="QPushButton" name="gef_c">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>对 GO 富集文件进行分类</string>

@@ -171,7 +171,7 @@ class MyApp(QMainWindow, Ui_Dialog):
                 source.setText(file_path)
                 return True
 
-        if source in [self.cds_input_text, self.vol_file, self.enrich_file]:
+        elif source in [self.cds_input_text, self.vol_file, self.enrich_file]:
             if event.type() == QEvent.DragEnter:
                 if event.mimeData().hasUrls():
                     event.acceptProposedAction()

@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMa
 from PyQt5.QtCore import QUrl, QEvent, QTimer
 from PyQt5.QtGui import QDesktopServices, QIcon
 from ui_1 import MyApp
-from plot import plot_GOem, plot_GOem_classify
+from plot import plot_GOem, plot_GOem_classify, read_golist, assign_go
 import sys
 import os
 import urllib.request
@@ -22,12 +22,14 @@ class MyApp2(MyApp):
         self.enrich_file.installEventFilter(self)
         self.gtl_dl.clicked.connect(self.gtlfile_dl)
         self.plot_bu_2.clicked.connect(self.GOem_plot)
+        self.gef_c.clicked.connect(self.GOem_anno)
+
 
     def gtlfile_dl(self):
 
         gtl_url = 'http://current.geneontology.org/ontology/go-basic.obo'
         gtl_fn = 'go_term.list'
-        if os.path.exists(gtl_fn):
+        if os.path.exists(gtl_fn) or os.path.exists('go-basic.obo'):
             self.show_message_dialog("文件已存在，下载终止")
             return
         try:
@@ -58,6 +60,28 @@ class MyApp2(MyApp):
             except Exception as e:
                 self.show_message_dialog(f"发生错误：{e}\n请检查文件")
 
+    def GOem_anno(self):
+
+        fp = self.enrich_file.toPlainText()
+        if fp == '':
+            self.show_message_dialog("请输入文件路径。")
+            return
+
+        if os.path.exists('go_term.list'):
+            glfile = 'go_term.list'
+        elif os.path.exists('go-basic.obo'):
+            glfile = 'go-basic.obo'
+        else:
+            self.show_message_dialog("不存在 GO list 文件，请下载。")
+            return
+
+        golist = read_golist(glfile)
+        if golist == {}:
+            self.show_message_dialog("GO list 文件存在错误，请检查。")
+            return
+
+        assign_go(fp, golist)
+        self.show_message_dialog("请完成注释，请见 GOanno.csv。")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

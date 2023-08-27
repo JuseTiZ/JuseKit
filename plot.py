@@ -149,3 +149,31 @@ def plot_GOem(file_path, num = 20, xlab = 'GeneRatio', ylab = 'Description'):
 
     plt.tight_layout()
     plt.show()
+
+
+def read_golist(filepath):
+
+    golist = {}
+    with open(filepath, 'r') as f:
+
+        for line in f:
+            if line.startswith('id:'):
+                GOid = line.lstrip('id:').strip()
+                golist[GOid] = {}
+            if line.startswith('name:'):
+                GOname = line.lstrip('name:').strip()
+                golist[GOid]['description'] = GOname
+            if line.startswith('namespace:'):
+                GOonto = line.lstrip('namespace:').strip()
+                golist[GOid]['ontology'] = GOonto
+
+    return golist
+
+
+def assign_go(file_path, golist):
+
+    data = pd.read_csv(file_path)
+    data['Description'] = data['ID'].apply(lambda x: golist.get(x, {}).get('description', 'NA(Obsolete)'))
+    data['Ontology'] = data['ID'].apply(lambda x: golist.get(x, {}).get('ontology', 'NA(Obsolete)'))
+    dirpath = os.path.dirname(file_path)
+    data.to_csv(f'{dirpath}/GOanno.csv', index=False)
