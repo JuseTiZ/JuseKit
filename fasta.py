@@ -107,3 +107,43 @@ def peptocds(id_seq, pepfile, outputdir):
                     id = line.split()[0][1:]
                     seq = id_seq[id]
                     out.write(f'>{id}\n{seq}')
+
+
+def qc_calcu(id_seq):
+
+    seq_len = sorted([len(seq) for seq in id_seq.values()], reverse=True)
+    total_length = sum(seq_len)
+    max_length = max(seq_len)
+    min_length = min(seq_len)
+    gene_count = len(id_seq.values())
+    aver_length = round(total_length/gene_count, 2)
+
+    proportions = [0.1, 0.2, 0.3, 0.4, 0.5]
+    threshold_lengths = [total_length * prop for prop in proportions]
+    contig_values = {prop: 0 for prop in proportions}
+
+    now_length = 0
+
+    for length in seq_len:
+        now_length += length
+        for prop, thresh in zip(proportions, threshold_lengths):
+            if contig_values[prop] == 0 and now_length > thresh:
+                contig_values[prop] = length
+        if now_length >= threshold_lengths[-1]:
+            break
+
+    contign10, contign20, contign30, contign40, contign50 = contig_values.values()
+
+    all_bases = ''.join(id_seq.values())
+    GC_content = round((all_bases.count('G') + all_bases.count('C')) * 100/total_length, 2)
+
+    return {'num_gene': gene_count,
+            'max_leng': max_length,
+            'min_leng': min_length,
+            'ave_leng': aver_length,
+            'N10': contign10,
+            'N20': contign20,
+            'N30': contign30,
+            'N40': contign40,
+            'N50': contign50,
+            'GC': GC_content}

@@ -36,8 +36,6 @@ class TimedDialog(QDialog):
         self.timer.setSingleShot(True)
         self.timer.start(time) # 5 秒 (5000 毫秒)
 
-logging.basicConfig(filename='error.log', level=logging.ERROR, filemode='w',
-                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 class MyApp(QMainWindow, Ui_Dialog):
     def __init__(self):
@@ -147,6 +145,8 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.vol_file.installEventFilter(self)
         self.plot_bu_1.clicked.connect(self.vol_plot)
         self.sel_vol_file.clicked.connect(lambda: self.on_button_open_file_clicked(self.vol_file))
+        logging.basicConfig(filename='error.log', level=logging.ERROR, filemode='w',
+                            format='%(asctime)s - %(levelname)s - %(message)s')
 
     def open_learning_timer(self):
         self.learning_timer_window = LearningTimerWindow()
@@ -171,7 +171,7 @@ class MyApp(QMainWindow, Ui_Dialog):
                 source.setText(file_path)
                 return True
 
-        elif source in [self.cds_input_text, self.vol_file, self.enrich_file]:
+        elif source in [self.cds_input_text, self.vol_file, self.enrich_file, self.qc_file]:
             if event.type() == QEvent.DragEnter:
                 if event.mimeData().hasUrls():
                     event.acceptProposedAction()

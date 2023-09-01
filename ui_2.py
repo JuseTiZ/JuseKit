@@ -10,8 +10,10 @@ from PyQt5.QtCore import QUrl, QEvent, QTimer
 from PyQt5.QtGui import QDesktopServices, QIcon
 from ui_1 import MyApp
 from plot import plot_GOem, plot_GOem_classify, read_golist, assign_go
+from fasta import readfa, qc_calcu
 import sys
 import os
+import logging
 import urllib.request
 
 class MyApp2(MyApp):
@@ -23,6 +25,10 @@ class MyApp2(MyApp):
         self.gtl_dl.clicked.connect(self.gtlfile_dl)
         self.plot_bu_2.clicked.connect(self.GOem_plot)
         self.gef_c.clicked.connect(self.GOem_anno)
+        self.qc_file.installEventFilter(self)
+        self.sel_qc_file.clicked.connect(lambda: self.on_button_open_file_clicked(self.qc_file))
+        self.qc_running.clicked.connect(self.qc_cal)
+
 
 
     def gtlfile_dl(self):
@@ -80,8 +86,101 @@ class MyApp2(MyApp):
             self.show_message_dialog("GO list 文件存在错误，请检查。")
             return
 
-        assign_go(fp, golist)
-        self.show_message_dialog("请完成注释，请见 GOanno.csv。")
+        try:
+            assign_go(fp, golist)
+        except Exception as e:
+            self.show_message_dialog(f"发生错误：{e}\n请检查文件")
+            return
+
+        self.show_message_dialog("已完成注释，请见 GOanno.csv。")
+
+
+    def qc_cal(self):
+
+        fp = self.qc_file.toPlainText()
+        op = os.path.dirname(fp)
+        gene_symbol = self.gene_symbol_2.toPlainText()
+
+        if fp == '':
+            self.show_message_dialog('请输入文件路径。')
+            return
+
+        self.qc_progress.setValue(20)
+
+        try:
+            if gene_symbol == '':
+                id_seq, _, longest_is = readfa(file=fp, symbol=gene_symbol, stripornot=True)
+            else:
+                id_seq, _, longest_is = readfa(file=fp, symbol=gene_symbol, longest=True, stripornot=True)
+        except Exception as e:
+            self.show_message_dialog(f'发生错误：{e}')
+            logging.error("发生错误: \n%s", str(e))
+            self.qc_progress.setValue(0)
+            return
+
+        self.qc_progress.setValue(50)
+
+        try:
+            all_qc_index = qc_calcu(id_seq)
+        except Exception as e:
+            self.show_message_dialog(f'发生错误：{e}')
+            logging.error("发生错误: \n%s", str(e))
+            self.qc_progress.setValue(0)
+            return
+
+        self.qc_progress.setValue(80)
+
+        qctext = f'######################\n' \
+                 f'### File: {fp}\n' \
+                 f'######################\n' \
+                 f'\n' \
+                 f'\tNum of gene: {all_qc_index["num_gene"]}\n' \
+                 f'\tMax length: {all_qc_index["max_leng"]}\n' \
+                 f'\tMin length: {all_qc_index["min_leng"]}\n' \
+                 f'\tAverage length: {all_qc_index["ave_leng"]}\n' \
+                 f'\n' \
+                 f'\tN10: {all_qc_index["N10"]}\n' \
+                 f'\tN20: {all_qc_index["N20"]}\n' \
+                 f'\tN30: {all_qc_index["N30"]}\n' \
+                 f'\tN40: {all_qc_index["N40"]}\n' \
+                 f'\tN50: {all_qc_index["N50"]}\n' \
+                 f'\tGC content: {all_qc_index["GC"]}%\n\n'
+
+        if longest_is == {}:
+            with open(f'{op}/assem_qc.txt', 'w') as t:
+                t.write(qctext)
+
+            self.qc_progress.setValue(100)
+            self.show_message_dialog(f'运算已完成，输出见 {op}/assem_qc.txt。')
+            self.qc_progress.setValue(0)
+        else:
+            all_qc_index = qc_calcu(longest_is)
+            self.qc_progress.setValue(90)
+
+            qctext += f'######################\n' \
+                 f'### Calculated based on longest contig\n' \
+                 f'######################\n' \
+                 f'\n' \
+                 f'\tNum of gene: {all_qc_index["num_gene"]}\n' \
+                 f'\tMax length: {all_qc_index["max_leng"]}\n' \
+                 f'\tMin length: {all_qc_index["min_leng"]}\n' \
+                 f'\tAverage length: {all_qc_index["ave_leng"]}\n' \
+                 f'\n' \
+                 f'\tN10: {all_qc_index["N10"]}\n' \
+                 f'\tN20: {all_qc_index["N20"]}\n' \
+                 f'\tN30: {all_qc_index["N30"]}\n' \
+                 f'\tN40: {all_qc_index["N40"]}\n' \
+                 f'\tN50: {all_qc_index["N50"]}\n' \
+                 f'\tGC content: {all_qc_index["GC"]}%\n'
+
+            with open(f'{op}/assem_qc.txt', 'w') as t:
+                t.write(qctext)
+
+            self.qc_progress.setValue(100)
+            self.show_message_dialog(f'运算已完成，输出见 {op}/assem_qc.txt。')
+            self.qc_progress.setValue(0)
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
