@@ -1,11 +1,11 @@
 # Main window of JuseKit (part 2) #
 # Author: Juse
-# Version: 0.7
+# Version: 0.8
 # 该部分包括的功能：
 # 绘图专区：富集气泡图
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMainWindow, QLabel
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMainWindow, QLabel, QMenu, QAction
 from PyQt5.QtCore import QUrl, QEvent, QTimer
 from PyQt5.QtGui import QDesktopServices, QIcon
 from ui_1 import MyApp
@@ -29,6 +29,39 @@ class MyApp2(MyApp):
         self.sel_qc_file.clicked.connect(lambda: self.on_button_open_file_clicked(self.qc_file))
         self.qc_running.clicked.connect(self.qc_cal)
 
+        self.file_menu_2 = self.menu_bar.addMenu("教程传送")
+
+
+        assempr = QMenu("组装序列处理", self)
+        phyloge = QMenu("系统发育分析", self)
+        plotreg = QMenu("绘图专区", self)
+
+        jc = [assempr, phyloge, plotreg]
+        for i in jc:
+            self.file_menu_2.addMenu(i)
+
+        as_web = {'提取最长转录本':'https://jusetiz.github.io/2023/04/08/JuseKit（一） —— 提取最长转录本',
+                  '处理组装 id':'https://jusetiz.github.io/2023/04/09/JuseKit（二） —— 序列id简化、加前缀尾缀或转变为物种名',
+                  '根据 id 提取序列':'https://jusetiz.github.io/2023/04/13/JuseKit（三） —— 串联序列、根据id提取序列、批量修改文件尾缀',
+                  '组装指标计算':'https://jusetiz.github.io/2023/09/01/JuseKit（八） —— 计算转录组组装指标'}
+
+        ph_web = {'序列串联':'https://jusetiz.github.io/2023/04/13/JuseKit（三） —— 串联序列、根据id提取序列、批量修改文件尾缀',
+                  '序列格式转换':'https://jusetiz.github.io/2023/04/26/JuseKit（四） —— 序列格式转换以及 Orthogroup 的 cds 提取',
+                  'PEP 转 CDS':'https://jusetiz.github.io/2023/04/26/JuseKit（四） —— 序列格式转换以及 Orthogroup 的 cds 提取',
+                  '序列过滤':'https://jusetiz.github.io/2023/05/14/JuseKit（五） —— 用于系统发育分析的序列过滤'}
+
+        pl_web = {'火山图':'https://jusetiz.github.io/2023/07/04/JuseKit（六） —— 绘制火山图',
+                  '富集气泡图':'https://jusetiz.github.io/2023/08/04/JuseKit（七） —— 绘制 GO 富集分析气泡图'}
+
+        all_web = {assempr:as_web,
+                   phyloge:ph_web,
+                   plotreg:pl_web}
+
+        for w in all_web:
+            for option, page in all_web[w].items():
+                action = QAction(option, self)
+                action.triggered.connect(lambda checked, page=page: self.blog(page))
+                w.addAction(action)
 
 
     def gtlfile_dl(self):

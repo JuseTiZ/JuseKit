@@ -1,6 +1,6 @@
 # Main window of JuseKit (part 1) #
 # Author: Juse
-# Version: 0.7
+# Version: 0.8
 # 该部分包括的功能：
 # 组装序列提取：提取最长转录本、处理组装id、根据id提取序列
 # 系统发育分析：序列串联、序列格式转换、PEP转CDS、序列过滤
@@ -51,50 +51,33 @@ class MyApp(QMainWindow, Ui_Dialog):
                 border-bottom: 1px ridge grey;
                 background: white;
             }
-            QMenu {
-                border: 1px outset grey;
-                border-radius: 5px;
-                padding: 2px 2px 2px 2px;
-            }
-            QMenu::item {
-                /* 设置菜单项的内边距 */
-                padding: 6px 3px 6px 3px;
-                /* 文字水平垂直居中 */
-                text-align: center;
-            }
-            QMenu::item:selected {
-                /* 鼠标悬停时的背景颜色 */
-                background-color: rgba(135, 206, 250, 128);
-                border-radius: 5px;
-            }
-            QMenu::separator {
-                height: 2px;
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
-                                            stop: 0 lightgray, stop: 0.5 gray, stop: 1 lightgray);
-                margin-left: 0px;
-                margin-right: 0px;
-            }
         """)
 
         self.file_menu = self.menu_bar.addMenu("实用小工具")
 
-        # 添加菜单项并连接槽函数
-        self.action_tab1 = QtWidgets.QAction(self)
-        self.action_tab1.setIconText("批量改文件尾缀")
-        self.action_tab1.triggered.connect(self.wz_modi)
-        self.file_menu.addAction(self.action_tab1)
 
-        self.action_tab3 = QtWidgets.QAction(self)
-        self.action_tab3.setIconText("学习计时小工具")
-        self.action_tab3.triggered.connect(self.open_learning_timer)
-        self.file_menu.addAction(self.action_tab3)
+        self.wz_modify = QtWidgets.QAction(self)
+        self.wz_modify.setIconText("批量改文件尾缀")
+        self.wz_modify.triggered.connect(self.wz_modi)
+        self.file_menu.addAction(self.wz_modify)
+
+        self.study_rc = QtWidgets.QAction(self)
+        self.study_rc.setIconText("学习计时小工具")
+        self.study_rc.triggered.connect(self.open_learning_timer)
+        self.file_menu.addAction(self.study_rc)
 
         self.file_menu.addSeparator()
 
-        self.action_tab2 = QtWidgets.QAction(self)
-        self.action_tab2.setIconText("关于作者那些事")
-        self.action_tab2.triggered.connect(lambda: self.blog("https://jusetiz.github.io/myself/"))
-        self.file_menu.addAction(self.action_tab2)
+        self.au_pf = QtWidgets.QAction(self)
+        self.au_pf.setIconText("关于作者那些事")
+        self.au_pf.triggered.connect(lambda: self.blog("https://jusetiz.github.io/myself/"))
+        self.file_menu.addAction(self.au_pf)
+
+        self.au_ms = QtWidgets.QAction(self)
+        self.au_ms.setIconText("想跟作者留些言")
+        self.au_ms.triggered.connect(lambda: self.blog("https://jusetiz.github.io/messageboard/"))
+        self.file_menu.addAction(self.au_ms)
+
 
         self.gene_symbol_en.stateChanged.connect(self.on_checkbox_state_changed)
         self.inputfa.clicked.connect(lambda: self.on_button_open_file_clicked(self.selected_fa))

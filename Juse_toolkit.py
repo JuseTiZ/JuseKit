@@ -1074,7 +1074,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "JuseKit - JUst a SEquence toolKIt for Transcriptomics v0.7"))
+        Dialog.setWindowTitle(_translate("Dialog", "JuseKit - JUst a SEquence toolKIt for Transcriptomics v0.8"))
         self.sp.setWhatsThis(_translate("Dialog", "<html><head/><body><p>序列处理功能的存放处</p></body></html>"))
         self.label.setText(_translate("Dialog", "序列："))
         self.label_2.setText(_translate("Dialog", "输入文件："))
