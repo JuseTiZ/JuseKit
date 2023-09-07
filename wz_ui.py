@@ -2,12 +2,12 @@
 # Author: Juse
 # Description: Used to replace file suffixes in bulk.
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
 import sys
 from wz_kit import wzkit
 import os
 
-class Wzapp(QMainWindow, wzkit):
+class Wzapp(QDialog, wzkit):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)

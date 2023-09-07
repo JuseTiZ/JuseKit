@@ -8,11 +8,11 @@
 # 由于内容过多，之后更新将在 ui_2.py 进行#
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMainWindow, QLabel
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMainWindow, QLabel, QMenuBar
 from PyQt5.QtCore import QUrl, QEvent, QTimer
 from PyQt5.QtGui import QDesktopServices, QIcon
 import sys
-from Juse_toolkit import Ui_Dialog
+from Juse_toolkit import Ui_MainWindow
 import os
 from wz_ui import Wzapp
 from fasta import readfa, id_modify, peptocds
@@ -37,9 +37,10 @@ class TimedDialog(QDialog):
         self.timer.start(time) # 5 秒 (5000 毫秒)
 
 
-class MyApp(QMainWindow, Ui_Dialog):
+class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+
         self.setupUi(self)
 
         # 菜单栏
@@ -84,8 +85,6 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.le_running.clicked.connect(self.longest_exatract)
         self.clearinput.clicked.connect(self.resetle)
         self.clearinput_2.clicked.connect(self.resetle_2)
-        self.bk_go.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
-        self.bk_go_2.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.prefixbutton.toggled.connect(self.update_group_box)
         self.simplybutton.toggled.connect(self.update_group_box)
         self.suffixbutton.toggled.connect(self.update_group_box)
@@ -94,7 +93,6 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.idpc_running.clicked.connect(self.id_change)
         self.inputfa_2.clicked.connect(lambda: self.on_button_open_file_clicked(self.selected_fa_2))
         self.multipc_button.clicked.connect(lambda: self.browse_folder(self.mpc_path))
-        self.bk_go_5.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.sel_ali_bro_2.clicked.connect(lambda: self.browse_folder_2(label1=self.sel_ali_path, label2=self.sel_ali))
         self.sel_ali_bro.clicked.connect(lambda: self.select_mtfiles(label1=self.sel_ali_path, label2=self.sel_ali))
         self.rm_file.clicked.connect(self.clear_files)
@@ -107,7 +105,6 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.id_file_ul.clicked.connect(lambda: self.on_button_open_file_clicked(self.id_file))
         self.clear_fl.clicked.connect(self.resetle_3)
         self.start_ex.clicked.connect(self.extract_id)
-        self.bk_go_3.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.cv_od_bu.clicked.connect(lambda: self.browse_folder(self.cv_out_dir))
         self.clear_cvfile.clicked.connect(self.resetle_4)
         self.sel_ali_2.installEventFilter(self)
@@ -119,9 +116,7 @@ class MyApp(QMainWindow, Ui_Dialog):
         self.pep_op_dir_set.clicked.connect(lambda: self.browse_folder(self.pep_op_dir))
         self.ptc_running.clicked.connect(self.peptocds_button)
         self.cds_input_text.installEventFilter(self)
-        self.bk_go_4.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.sel_ali_bro_5.clicked.connect(lambda: self.select_mtfiles(label1=None, label2=self.sel_ali_3))
-        self.bk_go_7.clicked.connect(lambda: self.blog("https://jusetiz.github.io/"))
         self.filter_bu.clicked.connect(lambda: self.browse_folder(self.filter_opdir))
         self.ptc_running_2.clicked.connect(self.fafilter)
         self.sel_ali_3.installEventFilter(self)
@@ -495,6 +490,7 @@ class MyApp(QMainWindow, Ui_Dialog):
         total_length = 0
         total_spe_seq = {}
         gene_spe_dic = {}
+        partition_name = {}
 
         total_num = len(aligns)
         compl_num = 0
@@ -540,7 +536,13 @@ class MyApp(QMainWindow, Ui_Dialog):
                 gene_spe_dic[gene_name] = gene_spe
                 # 添加分区信息
                 charsetid = align.split('.')[0].split('/')[-1]
-                IQpartition += f"\tcharset {charsetid}={total_length + 1}-{total_length + tmp_len};\n"
+                if charsetid not in partition_name.keys():
+                    partition_name[charsetid] = 1
+                    IQpartition += f"\tcharset {charsetid}={total_length + 1}-{total_length + tmp_len};\n"
+                else:
+                    partition_name[charsetid] += 1
+                    IQpartition += f"\tcharset {charsetid}_{partition_name[charsetid]}={total_length + 1}-" \
+                                   f"{total_length + tmp_len};\n"
 
                 total_length += tmp_len
             compl_num += 1

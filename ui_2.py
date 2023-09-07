@@ -7,7 +7,7 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QApplication, QMainWindow, QLabel, QMenu, QAction
 from PyQt5.QtCore import QUrl, QEvent, QTimer
-from PyQt5.QtGui import QDesktopServices, QIcon
+from PyQt5.QtGui import QDesktopServices, QIcon, QFont
 from ui_1 import MyApp
 from plot import plot_GOem, plot_GOem_classify, read_golist, assign_go
 from fasta import readfa, qc_calcu
