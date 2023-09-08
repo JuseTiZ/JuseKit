@@ -4,7 +4,7 @@
 
 ![](https://jusetiz.github.io/pic2/jusekit.png)
 
-基于 `Python v3.10` 和 `PyQt5` 开发，请在右侧 Release 下载。
+基于 `Python v3.10` 和 `PyQt5` 开发，软件打包使用 `pyinstaller` 进行，请在右侧 Release 下载。
 
 `JuseKit.zip` 解压后使用文件夹中的 `Jusekit.exe` 打开。
 

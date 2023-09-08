@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1021</width>
-    <height>575</height>
+    <width>1059</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -52,7 +52,7 @@
            <attribute name="title">
             <string>提取最长转录本</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_14" stretch="3,1">
+           <layout class="QVBoxLayout" name="verticalLayout_14" stretch="3,0">
             <item>
              <widget class="QGroupBox" name="groupBox_35">
               <property name="title">
@@ -135,6 +135,12 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
                    <property name="mouseTracking">
                     <bool>true</bool>
                    </property>
@@ -200,6 +206,12 @@ p, li { white-space: pre-wrap; }
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
                        <height>30</height>
                       </size>
                      </property>
@@ -269,7 +281,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>处理组装id</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_20" stretch="1,1,6">
+           <layout class="QVBoxLayout" name="verticalLayout_20" stretch="3,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_37">
               <property name="title">
@@ -333,11 +345,37 @@ p, li { white-space: pre-wrap; }
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_42">
                <item>
+                <spacer name="horizontalSpacer_16">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QRadioButton" name="spenabutton">
                  <property name="text">
                   <string>转变物种名</string>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_18">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item>
                 <widget class="QRadioButton" name="simplybutton">
@@ -347,6 +385,19 @@ p, li { white-space: pre-wrap; }
                 </widget>
                </item>
                <item>
+                <spacer name="horizontalSpacer_19">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QRadioButton" name="suffixbutton">
                  <property name="text">
                   <string>添加尾缀</string>
@@ -354,11 +405,37 @@ p, li { white-space: pre-wrap; }
                 </widget>
                </item>
                <item>
+                <spacer name="horizontalSpacer_20">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QRadioButton" name="prefixbutton">
                  <property name="text">
                   <string>添加前缀</string>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_17">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -378,56 +455,58 @@ p, li { white-space: pre-wrap; }
                     <verstretch>1</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>60</height>
+                   </size>
+                  </property>
                   <property name="title">
                    <string>添加前缀或后缀</string>
                   </property>
-                  <widget class="QTextEdit" name="fix_add">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>20</y>
-                     <width>201</width>
-                     <height>20</height>
-                    </rect>
-                   </property>
-                   <property name="mouseTracking">
-                    <bool>true</bool>
-                   </property>
-                   <property name="tabletTracking">
-                    <bool>false</bool>
-                   </property>
-                   <property name="acceptDrops">
-                    <bool>true</bool>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Box</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Plain</enum>
-                   </property>
-                   <property name="verticalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAlwaysOff</enum>
-                   </property>
-                   <property name="horizontalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAlwaysOff</enum>
-                   </property>
-                   <property name="sizeAdjustPolicy">
-                    <enum>QAbstractScrollArea::AdjustIgnored</enum>
-                   </property>
-                   <property name="tabChangesFocus">
-                    <bool>false</bool>
-                   </property>
-                   <property name="html">
-                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                  <layout class="QVBoxLayout" name="verticalLayout_41">
+                   <item>
+                    <widget class="QTextEdit" name="fix_add">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="mouseTracking">
+                      <bool>true</bool>
+                     </property>
+                     <property name="tabletTracking">
+                      <bool>false</bool>
+                     </property>
+                     <property name="acceptDrops">
+                      <bool>true</bool>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Box</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Plain</enum>
+                     </property>
+                     <property name="verticalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="horizontalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="sizeAdjustPolicy">
+                      <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                     </property>
+                     <property name="tabChangesFocus">
+                      <bool>false</bool>
+                     </property>
+                     <property name="html">
+                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -441,80 +520,64 @@ p, li { white-space: pre-wrap; }
                     <verstretch>3</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>150</height>
+                   </size>
+                  </property>
                   <property name="title">
                    <string>转变物种名</string>
                   </property>
-                  <widget class="QTextEdit" name="spe_symbol">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>50</y>
-                     <width>201</width>
-                     <height>21</height>
-                    </rect>
-                   </property>
-                   <property name="verticalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAlwaysOff</enum>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_7">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>30</y>
-                     <width>171</width>
-                     <height>16</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string>物种标识</string>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_8">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>80</y>
-                     <width>54</width>
-                     <height>12</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string>例：</string>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_9">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>100</y>
-                     <width>291</width>
-                     <height>16</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string>&gt;Human@contig1 时为 @</string>
-                   </property>
-                  </widget>
-                  <widget class="QLabel" name="label_10">
-                   <property name="geometry">
-                    <rect>
-                     <x>10</x>
-                     <y>120</y>
-                     <width>231</width>
-                     <height>16</height>
-                    </rect>
-                   </property>
-                   <property name="text">
-                    <string>&gt;Human_contig1 时为 _</string>
-                   </property>
-                  </widget>
+                  <layout class="QVBoxLayout" name="verticalLayout_42">
+                   <item>
+                    <widget class="QLabel" name="label_7">
+                     <property name="text">
+                      <string>物种标识</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="spe_symbol">
+                     <property name="verticalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_8">
+                     <property name="text">
+                      <string>例：</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_9">
+                     <property name="text">
+                      <string>&gt;Human@contig1 时为 @</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_10">
+                     <property name="text">
+                      <string>&gt;Human_contig1 时为 _</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                </layout>
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_3">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>213</height>
+                 </size>
+                </property>
                 <property name="title">
                  <string>更多功能（或许会随着更新完善）</string>
                 </property>
@@ -627,6 +690,12 @@ p, li { white-space: pre-wrap; }
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_38">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>213</height>
+                 </size>
+                </property>
                 <property name="title">
                  <string>运行区</string>
                 </property>
@@ -656,7 +725,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>根据id提取序列</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_24" stretch="4,1,1">
+           <layout class="QVBoxLayout" name="verticalLayout_24" stretch="3,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_39">
               <property name="title">
@@ -803,6 +872,12 @@ p, li { white-space: pre-wrap; }
                    <height>30</height>
                   </size>
                  </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>30</height>
+                  </size>
+                 </property>
                  <property name="verticalScrollBarPolicy">
                   <enum>Qt::ScrollBarAlwaysOff</enum>
                  </property>
@@ -838,7 +913,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>组装指标计算</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_26" stretch="3,1,1">
+           <layout class="QVBoxLayout" name="verticalLayout_26" stretch="3,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_30">
               <property name="title">
@@ -909,6 +984,12 @@ p, li { white-space: pre-wrap; }
                </item>
                <item>
                 <widget class="QTextEdit" name="gene_symbol_2">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>30</height>
+                  </size>
+                 </property>
                  <property name="placeholderText">
                   <string>默认为空</string>
                  </property>
@@ -959,7 +1040,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>序列串联</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_37" stretch="2,1,0">
+           <layout class="QVBoxLayout" name="verticalLayout_37" stretch="2,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_7">
               <property name="title">
@@ -1105,92 +1186,108 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <layout class="QHBoxLayout" name="horizontalLayout_59">
                  <item>
-                  <widget class="QCheckBox" name="modi_dir">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="text">
-                    <string>自定义结果路径</string>
-                   </property>
-                   <property name="checked">
-                    <bool>false</bool>
-                   </property>
-                   <property name="tristate">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTextEdit" name="con_res_dir">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="verticalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAlwaysOff</enum>
-                   </property>
-                   <property name="html">
-                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                   <item>
+                    <widget class="QCheckBox" name="modi_dir">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="text">
+                      <string>自定义结果路径</string>
+                     </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
+                     <property name="tristate">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="con_res_dir">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="verticalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="html">
+                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="placeholderText">
-                    <string>不定义时默认当前应用路径</string>
-                   </property>
-                  </widget>
+                     </property>
+                     <property name="placeholderText">
+                      <string>不定义时默认当前应用路径</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QToolButton" name="con_res_sel">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item>
-                  <widget class="QToolButton" name="con_res_sel">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_16">
-                 <item>
-                  <widget class="QCheckBox" name="spe_able">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="text">
-                    <string>是否使用物种标识？</string>
-                   </property>
-                   <property name="checked">
-                    <bool>false</bool>
-                   </property>
-                   <property name="tristate">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTextEdit" name="spe_sym">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="verticalScrollBarPolicy">
-                    <enum>Qt::ScrollBarAlwaysOff</enum>
-                   </property>
-                   <property name="html">
-                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                  <layout class="QHBoxLayout" name="horizontalLayout_16">
+                   <item>
+                    <widget class="QCheckBox" name="spe_able">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="text">
+                      <string>是否使用物种标识？</string>
+                     </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
+                     <property name="tristate">
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="spe_sym">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="verticalScrollBarPolicy">
+                      <enum>Qt::ScrollBarAlwaysOff</enum>
+                     </property>
+                     <property name="html">
+                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="placeholderText">
-                    <string>例：@、_、| 等</string>
-                   </property>
-                  </widget>
+                     </property>
+                     <property name="placeholderText">
+                      <string>例：@、_、| 等</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </item>
@@ -1233,7 +1330,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>序列格式转换</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_28" stretch="3,1,1,1">
+           <layout class="QVBoxLayout" name="verticalLayout_28" stretch="3,0,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_2">
               <property name="title">
@@ -1606,7 +1703,7 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>序列过滤</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_34">
+           <layout class="QVBoxLayout" name="verticalLayout_34" stretch="1,0,0,0">
             <item>
              <widget class="QGroupBox" name="groupBox_16">
               <property name="title">
@@ -1971,7 +2068,7 @@ p, li { white-space: pre-wrap; }
                  <property name="maximumSize">
                   <size>
                    <width>500</width>
-                   <height>16777215</height>
+                   <height>30</height>
                   </size>
                  </property>
                  <property name="verticalScrollBarPolicy">
@@ -2719,7 +2816,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1021</width>
+     <width>1059</width>
      <height>26</height>
     </rect>
    </property>
@@ -2727,5 +2824,230 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>clearinput</sender>
+   <signal>clicked()</signal>
+   <receiver>inputfa_txt</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>882</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearinput_2</sender>
+   <signal>clicked()</signal>
+   <receiver>inputfa_txt_2</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>927</x>
+     <y>400</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>191</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_fl</sender>
+   <signal>clicked()</signal>
+   <receiver>fasta_frame</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>861</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>673</x>
+     <y>205</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_fl</sender>
+   <signal>clicked()</signal>
+   <receiver>id_frame</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>876</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>774</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rm_file</sender>
+   <signal>clicked()</signal>
+   <receiver>sel_ali</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>870</x>
+     <y>508</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>paml_box</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>962</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>333</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nex_box</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>936</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>422</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>phy_box</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>956</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>684</x>
+     <y>340</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>axt_box</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>982</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>254</x>
+     <y>365</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>nex_int_box</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1000</x>
+     <y>348</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>440</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clear_cvfile</sender>
+   <signal>clicked()</signal>
+   <receiver>sel_ali_2</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>689</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>549</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>pep_input_text</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>933</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>286</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>cds_input_text</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>982</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>705</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>sel_ali_3</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>849</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
