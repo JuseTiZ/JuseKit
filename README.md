@@ -18,7 +18,7 @@
 
 ```cmd
 git clone https://github.com/JuseTiZ/JuseKit.git
-cd JuseTiZ
+cd JuseKit
 python JuseKit_window.py
 ```
 
@@ -26,7 +26,7 @@ python JuseKit_window.py
 
 ```cmd
 git clone https://github.com/JuseTiZ/JuseKit.git
-cd JuseTiZ
+cd JuseKit
 pyinstaller --noconsole --name=JuseKit --icon=jusekit.ico JuseKit_window.py --hidden-import=matplotlib.backends.backend_pdf
 ```
 
