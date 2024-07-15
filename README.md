@@ -10,15 +10,31 @@
 
 古早版本可以直接下载 `JuseKit.exe` 打开，但运行速度和性能等可能有所下降。
 
-该软件也可直接使用源码运行，不过需要安装好已使用的包。
+在该 repository 的 `examples` 文件夹下储存着用于运行 JuseKit 的示例数据。
 
-也可扒源码编脚本直接运行。
+### 另外的运行方式
 
-教程可见：[Juse's blog](https://jusetiz.github.io/)
+该软件也可直接使用源码运行，不过需要安装好已使用的包：
+
+```cmd
+git clone https://github.com/JuseTiZ/JuseKit.git
+cd JuseTiZ
+python JuseKit_window.py
+```
+
+如果你想自行编译成 `exe` 文件，可以通过 `pyinstaller` 进行：
+
+```cmd
+git clone https://github.com/JuseTiZ/JuseKit.git
+cd JuseTiZ
+pyinstaller --noconsole --name=JuseKit --icon=jusekit.ico JuseKit_window.py --hidden-import=matplotlib.backends.backend_pdf
+```
+
+教程可见：[Juse's blog](https://biojuse.com/)
 
 若存在报错 Bug 可以联系 Juse 修复。
 
-目前已经实现的功能：
+### 目前已经实现的功能
 
 - 提取最长转录本。
 - 根据 id 提取序列。

@@ -1,0 +1,5 @@
+#nexus
+begin sets;
+	charset 1=1-4;
+	charset 2=5-8;
+end;

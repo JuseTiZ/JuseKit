@@ -1,0 +1,31 @@
+######################
+### File: /examples/组装指标计算/test.fa
+######################
+
+	Num of gene: 4
+	Max length: 14
+	Min length: 7
+	Average length: 10.25
+
+	N10: 14
+	N20: 14
+	N30: 14
+	N40: 12
+	N50: 12
+	GC content: 36.59%
+
+######################
+### Calculated based on longest contig
+######################
+
+	Num of gene: 2
+	Max length: 14
+	Min length: 12
+	Average length: 13.0
+
+	N10: 14
+	N20: 14
+	N30: 14
+	N40: 14
+	N50: 14
+	GC content: 46.15%

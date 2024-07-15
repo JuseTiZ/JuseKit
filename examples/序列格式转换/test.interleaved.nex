@@ -1,0 +1,11 @@
+#NEXUS
+begin data;
+dimensions ntax=2 nchar=12;
+format datatype=DNA interleave=yes gap=-;
+
+matrix
+a CCAACCAACCAA
+B ACTGGATACTGGAT
+
+;
+end;
